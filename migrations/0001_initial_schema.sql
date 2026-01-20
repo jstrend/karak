@@ -1,9 +1,8 @@
--- 미용사 테이블
+-- 미용사 테이블 (1인 미용실)
 CREATE TABLE IF NOT EXISTS stylists (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   phone TEXT,
-  specialty TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -11,8 +10,10 @@ CREATE TABLE IF NOT EXISTS stylists (
 CREATE TABLE IF NOT EXISTS services (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  duration INTEGER NOT NULL, -- 소요 시간 (분)
-  price INTEGER NOT NULL,
+  duration INTEGER NOT NULL,
+  price_min INTEGER NOT NULL,
+  price_max INTEGER,
+  gender TEXT,
   description TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS customers (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   phone TEXT NOT NULL UNIQUE,
+  gender TEXT,
   email TEXT,
   notes TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -35,7 +37,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   service_id INTEGER NOT NULL,
   booking_date DATE NOT NULL,
   booking_time TIME NOT NULL,
-  status TEXT DEFAULT 'confirmed', -- confirmed, completed, cancelled
+  status TEXT DEFAULT 'confirmed',
   notes TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (customer_id) REFERENCES customers(id),

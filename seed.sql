@@ -1,27 +1,27 @@
--- 기본 미용사 데이터
-INSERT OR IGNORE INTO stylists (id, name, phone, specialty) VALUES 
-  (1, '김미영', '010-1234-5678', '컷트/펌'),
-  (2, '이수진', '010-2345-6789', '염색/탈색'),
-  (3, '박지현', '010-3456-7890', '컷트/클리닉');
+-- 기존 데이터 삭제
+DELETE FROM bookings;
+DELETE FROM customers;
+DELETE FROM services;
+DELETE FROM stylists;
 
--- 기본 서비스 메뉴
-INSERT OR IGNORE INTO services (id, name, duration, price, description) VALUES 
-  (1, '컷트', 60, 25000, '기본 헤어컷'),
-  (2, '펌', 120, 80000, '일반 펌'),
-  (3, '염색', 150, 100000, '전체 염색'),
-  (4, '탈색', 180, 120000, '전체 탈색'),
-  (5, '클리닉', 90, 50000, '두피 및 모발 케어'),
-  (6, '컷트+펌', 150, 95000, '컷트와 펌 패키지'),
-  (7, '컷트+염색', 180, 110000, '컷트와 염색 패키지');
+-- 원장 (1명)
+INSERT INTO stylists (id, name, phone) VALUES 
+  (1, '원장', '010-0000-0000');
+
+-- 서비스 메뉴 (커트 성별별, 펌 3만원~)
+INSERT INTO services (id, name, duration, price_min, price_max, gender, description) VALUES 
+  (1, '남자 커트', 30, 15000, 15000, 'male', '남성 헤어컷 (30분 소요)'),
+  (2, '여자 커트', 30, 18000, 18000, 'female', '여성 헤어컷 (30분 소요)'),
+  (3, '펌', 120, 30000, NULL, NULL, '펌 시술 (2시간 소요, 3만원부터)');
 
 -- 샘플 고객 데이터
-INSERT OR IGNORE INTO customers (id, name, phone, email) VALUES 
-  (1, '홍길동', '010-1111-2222', 'hong@example.com'),
-  (2, '김영희', '010-3333-4444', 'kim@example.com'),
-  (3, '이철수', '010-5555-6666', 'lee@example.com');
+INSERT INTO customers (id, name, phone, gender) VALUES 
+  (1, '홍길동', '010-1111-2222', 'male'),
+  (2, '김영희', '010-3333-4444', 'female'),
+  (3, '이철수', '010-5555-6666', 'male');
 
 -- 샘플 예약 데이터
-INSERT OR IGNORE INTO bookings (customer_id, stylist_id, service_id, booking_date, booking_time, status) VALUES 
+INSERT INTO bookings (customer_id, stylist_id, service_id, booking_date, booking_time, status) VALUES 
   (1, 1, 1, '2026-01-21', '10:00', 'confirmed'),
-  (2, 2, 3, '2026-01-21', '14:00', 'confirmed'),
-  (3, 1, 5, '2026-01-22', '11:00', 'confirmed');
+  (2, 1, 2, '2026-01-21', '14:00', 'confirmed'),
+  (3, 1, 3, '2026-01-22', '11:00', 'confirmed');
