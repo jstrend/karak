@@ -608,11 +608,17 @@ app.get('/', (c) => {
             const container = document.getElementById('time-slots');
             container.innerHTML = '';
             
+            // 영업시간: 10:30 ~ 19:00
             const times = [];
-            for (let hour = 9; hour <= 18; hour++) {
-                times.push(\`\${hour.toString().padStart(2, '0')}:00\`);
-                if (hour < 18) times.push(\`\${hour.toString().padStart(2, '0')}:30\`);
+            for (let hour = 10; hour <= 18; hour++) {
+                if (hour === 10) {
+                    times.push('10:30'); // 10:30부터 시작
+                } else {
+                    times.push(\`\${hour.toString().padStart(2, '0')}:00\`);
+                    if (hour < 18) times.push(\`\${hour.toString().padStart(2, '0')}:30\`);
+                }
             }
+            times.push('19:00'); // 19:00 추가
             
             times.forEach(time => {
                 const isAvailable = checkTimeAvailable(time, bookedTimes);
@@ -640,8 +646,8 @@ app.get('/', (c) => {
             const timeInMinutes = hour * 60 + min;
             const endTimeInMinutes = timeInMinutes + selectedService.duration;
             
-            // 영업 시간 체크 (18:30 이전에 끝나야 함)
-            if (endTimeInMinutes > 18 * 60 + 30) {
+            // 영업 시간 체크 (10:30부터 시작, 19:00 이전에 끝나야 함)
+            if (timeInMinutes < 10 * 60 + 30 || endTimeInMinutes > 19 * 60) {
                 return false;
             }
             
