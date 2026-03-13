@@ -45,8 +45,7 @@
 ## 🔗 URL 및 엔드포인트
 
 ### 개발 환경
-- **로컬**: http://localhost:3000
-- **샌드박스**: https://3000-i4cuql2ergotvxh7axrsz-2b54fc91.sandbox.novita.ai
+- **로컬**: http://localhost:5173
 
 ### API 엔드포인트
 
