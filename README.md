@@ -132,18 +132,22 @@
 # 의존성 설치
 npm install
 
-# 데이터베이스 초기화
+# 데이터베이스 초기화 (최초 1회, 또는 DB 초기화 시)
 npm run db:reset
 
+# 개발 서버 시작 (http://localhost:5173)
+npm run dev
+```
+
+> **참고**: `npm run dev`는 Vite + `@hono/vite-dev-server`를 사용하여 빌드 없이 핫 리로드로 실행됩니다.
+
+### 로컬 빌드 후 실행 (Cloudflare Pages 환경과 동일하게 테스트)
+```bash
 # 빌드
 npm run build
 
-# 개발 서버 시작 (PM2)
-fuser -k 3000/tcp 2>/dev/null || true
-pm2 start ecosystem.config.cjs
-
-# 서버 테스트
-curl http://localhost:3000
+# 빌드 결과물로 로컬 서버 실행 (http://localhost:3000)
+npm run dev:sandbox
 ```
 
 ### 프로덕션 배포 (Cloudflare Pages)
